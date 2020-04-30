@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">FarmLog</string>
+
+    <!--Login-->
+    <string name="label_welcome">Welcome Back</string>
+    <string name="label_continue">Please login to continue</string>
+    <string name="label_login">Login</string>
+    <string name="hint_email">Email address</string>
+    <string name="hint_password">Password</string>
+    <string name="logo_text">Farm Log</string>
 </resources>

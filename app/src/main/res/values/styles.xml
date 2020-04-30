@@ -9,4 +9,5 @@
         <item name="android:fontFamily">@font/raleway_semibold</item>
     </style>
 
+    <style name="TestContainer" parent="Theme.MaterialComponents.NoActionBar"/>
 </resources>
