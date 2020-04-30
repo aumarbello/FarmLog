@@ -20,7 +20,7 @@ android {
         versionName Versions.versionName
         multiDexEnabled true
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.aumarbello.farmlog.runner.FarmLogTestRunner"
     }
 
     buildTypes {
