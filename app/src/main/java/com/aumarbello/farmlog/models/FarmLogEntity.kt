@@ -15,6 +15,7 @@ data class FarmLogEntity (
     val farmName: String,
     val farmLocation: FarmLocation,
     val farmCoordinates: List<FarmLocation>,
+    val dateCreated: Long,
 
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0
