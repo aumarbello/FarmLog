@@ -22,7 +22,7 @@ object TestObjects {
         FarmLogEntity(imagePath, "Seyi Kano", 37, "F", "SK Allied Farm", location, coordinates, 1588264015550,5)
     )
 
-    val singleEntry = FarmLogEntity(imagePath, "Lizzy James", 43, "F", "L&J Farms", location, coordinates, 6)
+    val singleEntry = FarmLogEntity(imagePath, "Lizzy James", 43, "F", "L&J Farms", location, coordinates, 1588264015550, 6)
 
     val dashboardItems = listOf(
         CountItem("Users onboarded", 5),

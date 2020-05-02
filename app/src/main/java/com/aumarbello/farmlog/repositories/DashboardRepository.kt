@@ -48,7 +48,6 @@ class DashboardRepository @Inject constructor(private val dao: FarmLogDAO) {
             "Sat" to 0
         )
 
-
         val daysKeys = daysMap.keys.toList()
         entities.forEach {
             val dateCreated = Calendar.getInstance().apply {

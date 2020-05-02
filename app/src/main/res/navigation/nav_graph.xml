@@ -8,10 +8,23 @@
     <fragment
         android:id="@+id/login"
         android:label="@string/label_login"
+        android:name="com.aumarbello.farmlog.ui.LoginFragment"
         tools:layout="@layout/fragment_login"
         >
         <action
             android:id="@+id/to_dashboard"
+            app:destination="@id/dashboard"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/dashboard"
+        android:label="@string/label_dashboard"
+        android:name="com.aumarbello.farmlog.ui.DashboardFragment"
+        tools:layout="@layout/fragment_dashboard"
+        >
+        <action
+            android:id="@+id/to_new_entry"
             />
     </fragment>
 </navigation>

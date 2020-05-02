@@ -8,4 +8,5 @@
     <string name="hint_email">Email address</string>
     <string name="hint_password">Password</string>
     <string name="logo_text">Farm Log</string>
+    <string name="label_dashboard">Dashboard</string>
 </resources>

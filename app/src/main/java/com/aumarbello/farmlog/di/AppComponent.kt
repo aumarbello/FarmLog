@@ -1,6 +1,7 @@
 package com.aumarbello.farmlog.di
 
 import android.app.Application
+import com.aumarbello.farmlog.ui.DashboardFragment
 import com.aumarbello.farmlog.ui.LoginFragment
 import dagger.BindsInstance
 import dagger.Component
@@ -17,4 +18,5 @@ interface AppComponent {
     }
 
     fun inject(fragment: LoginFragment)
+    fun inject(fragment: DashboardFragment)
 }
