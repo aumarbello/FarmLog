@@ -9,4 +9,17 @@
     <string name="hint_password">Password</string>
     <string name="logo_text">Farm Log</string>
     <string name="label_dashboard">Dashboard</string>
+    <string name="label_profile_image">Profile Image</string>
+    <string name="hint_full_name">Fullname</string>
+    <string name="hint_age">Age</string>
+    <string name="label_gender">Gender</string>
+    <string name="label_male">Male</string>
+    <string name="label_female">Female</string>
+    <string name="hint_phone_number">Phone number</string>
+    <string name="hint_farm_name">Farm name</string>
+    <string name="label_farm_location">Farm location</string>
+    <string name="label_save">Save</string>
+    <string name="label_farm_coordinates">Farm coordinates</string>
+    <string name="label_add">Add</string>
+    <string name="label_view_map">View on map</string>
 </resources>
