@@ -19,6 +19,7 @@ android {
         versionCode Versions.versionCode
         versionName Versions.versionName
         multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "com.aumarbello.farmlog.runner.FarmLogTestRunner"
     }
