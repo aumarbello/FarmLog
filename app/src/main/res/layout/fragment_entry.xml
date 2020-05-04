@@ -115,6 +115,7 @@
                 />
 
             <RadioGroup
+                android:id="@+id/genderGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -229,6 +230,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/label_view_map"
                 android:layout_marginTop="@dimen/spacing_small"
+                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@id/coordinateList"
                 app:layout_constraintEnd_toEndOf="parent"
                 />
@@ -248,6 +250,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/farmCoordinatesLayout"
             />
+
+        <FrameLayout
+            android:id="@+id/loader"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.3"
+            android:background="@android:color/black"
+            android:visibility="gone">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminateBehavior="cycle"
+                android:indeterminateDrawable="@drawable/ic_progress"
+                />
+        </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
 </layout>

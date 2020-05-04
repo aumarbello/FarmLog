@@ -34,4 +34,7 @@
     <string name="action_current_location">Current location</string>
     <string name="action_pick_on_map">Pick on map</string>
     <string name="label_new_farm">New Farm</string>
+    <string name="format_location">%f,%f</string>
+    <string name="label_image">Image</string>
+    <string name="label_map">Map</string>
 </resources>

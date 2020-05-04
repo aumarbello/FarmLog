@@ -3,6 +3,7 @@ package com.aumarbello.farmlog.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.aumarbello.farmlog.viewmodels.DashboardViewModel
+import com.aumarbello.farmlog.viewmodels.EntrySharedViewModel
 import com.aumarbello.farmlog.viewmodels.EntryViewModel
 import com.aumarbello.farmlog.viewmodels.LoginViewModel
 import dagger.Binds
@@ -28,4 +29,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(EntryViewModel::class)
     abstract fun bindsEntryViewModel(viewModel: EntryViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(EntrySharedViewModel::class)
+    abstract fun bindsEntryVSharedViewModel(viewModel: EntrySharedViewModel): ViewModel
 }

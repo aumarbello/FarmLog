@@ -115,6 +115,6 @@ class DashboardFragmentTest {
     fun whenFABIsClickedNavigateToAddEntry() {
         onView(withId(R.id.addLogEntry)).perform(click())
 
-        verify(navController).navigate(R.id.to_new_entry)
+        verify(navController).navigate(R.id.newEntryFragment)
     }
 }

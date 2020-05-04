@@ -80,6 +80,7 @@ dependencies {
     implementation Deps.navigationUI
     implementation Deps.multiDex
     implementation Deps.graphView
+    implementation Deps.location
 
     kapt Deps.daggerCompiler
     kapt Deps.roomCompiler

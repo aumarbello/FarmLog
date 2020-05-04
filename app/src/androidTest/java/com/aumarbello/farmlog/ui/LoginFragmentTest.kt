@@ -124,6 +124,6 @@ class LoginFragmentTest {
     fun whenLoginSuccessFulNavigateToDashboard() {
         response.postValue(true)
 
-        verify(navController).navigate(R.id.to_dashboard)
+        verify(navController).navigate(R.id.dashboardFragment)
     }
 }

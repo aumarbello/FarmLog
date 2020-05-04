@@ -13,12 +13,13 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.aumarbello.farmlog.CoroutineTestRule
 import com.aumarbello.farmlog.R
 import com.aumarbello.farmlog.mock
+import com.aumarbello.farmlog.models.FarmLocation
+import com.aumarbello.farmlog.models.FarmLogEntity
 import com.aumarbello.farmlog.utils.Event
 import com.aumarbello.farmlog.utils.IsErrorDisplayedMatcher.Companion.isErrorDisplayed
-import com.aumarbello.farmlog.utils.SetImageViewTagAction.Companion.setTag
-import com.aumarbello.farmlog.utils.SetTextAction.Companion.setText
 import com.aumarbello.farmlog.utils.TaskIdlingResourceRule
 import com.aumarbello.farmlog.utils.ViewModelUtil
+import com.aumarbello.farmlog.viewmodels.EntrySharedViewModel
 import com.aumarbello.farmlog.viewmodels.EntryViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.hamcrest.CoreMatchers.not
@@ -26,7 +27,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
@@ -43,22 +43,33 @@ class EntryFragmentTest {
     private val response = MutableLiveData<Unit>()
     private val loader = MutableLiveData<Boolean>()
     private val error = MutableLiveData<Event<String>>()
-    private val navController = mock<NavController>()
+    private val locations = MutableLiveData<List<FarmLocation>>()
+    private val farmLocation = MutableLiveData<FarmLocation>()
+    private val imagePath = MutableLiveData<String>()
+    private lateinit var navController: NavController
 
     private lateinit var viewModel: EntryViewModel
+    private lateinit var sharedViewModel: EntrySharedViewModel
     private lateinit var scenario: FragmentScenario<EntryFragment>
 
     @Before
     fun setUp() {
         viewModel = Mockito.mock(EntryViewModel::class.java)
+        sharedViewModel = Mockito.mock(EntrySharedViewModel::class.java)
 
         `when`(viewModel.loader).thenReturn(loader)
         `when`(viewModel.response).thenReturn(response)
         `when`(viewModel.error).thenReturn(error)
+        
+        `when`(sharedViewModel.imagePath).thenReturn(imagePath)
+        `when`(sharedViewModel.locations).thenReturn(locations)
+        `when`(sharedViewModel.farmLocation).thenReturn(farmLocation)
+
+        navController = mock()
 
         scenario = launchFragmentInContainer(themeResId = R.style.TestContainer) {
             EntryFragment().apply {
-                factory = ViewModelUtil.createFor(viewModel)
+                factory = ViewModelUtil.createFor(viewModel, sharedViewModel)
             }
         }
 
@@ -76,8 +87,8 @@ class EntryFragmentTest {
     }
 
     @Test
-    fun whenFirstNameNotValidThenDisplayError() {
-        onView(withId(R.id.profileImage)).perform(setTag("pictures/imageTaken.png"))
+    fun whenFarmersNameNotValidThenDisplayError() {
+        imagePath.postValue("pictures/imageTaken.png")
 
         onView(withId(R.id.fullName)).perform(typeText("J P"), closeSoftKeyboard())
         onView(withId(R.id.save)).perform(scrollTo(), click())
@@ -87,7 +98,7 @@ class EntryFragmentTest {
 
     @Test
     fun whenPhoneNumberIsNotValidThenDisplayError() {
-        onView(withId(R.id.profileImage)).perform(setTag("pictures/imageTaken.png"))
+        imagePath.postValue("pictures/imageTaken.png")
         onView(withId(R.id.fullName)).perform(typeText("Bayo Musa"), closeSoftKeyboard())
 
         onView(withId(R.id.phoneNumber)).perform(typeText("08141"), closeSoftKeyboard())
@@ -98,7 +109,7 @@ class EntryFragmentTest {
 
     @Test
     fun whenAgeProvideIsNotValidThenDisplayError() {
-        onView(withId(R.id.profileImage)).perform(setTag("pictures/imageTaken.png"))
+        imagePath.postValue("pictures/imageTaken.png")
         onView(withId(R.id.fullName)).perform(typeText("Bayo Musa"), closeSoftKeyboard())
         onView(withId(R.id.phoneNumber)).perform(typeText("08012312312"), closeSoftKeyboard())
 
@@ -110,7 +121,7 @@ class EntryFragmentTest {
 
     @Test
     fun whenGenderNotSelectedThenDisplayError() {
-        onView(withId(R.id.profileImage)).perform(setTag("pictures/imageTaken.png"))
+        imagePath.postValue("pictures/imageTaken.png")
         onView(withId(R.id.fullName)).perform(typeText("Bayo Musa"), closeSoftKeyboard())
         onView(withId(R.id.phoneNumber)).perform(typeText("08012312312"), closeSoftKeyboard())
         onView(withId(R.id.age)).perform(scrollTo(), typeText("27"), closeSoftKeyboard())
@@ -123,7 +134,7 @@ class EntryFragmentTest {
 
     @Test
     fun whenFarmNameNotValidThenDisplayError() {
-        onView(withId(R.id.profileImage)).perform(setTag("pictures/imageTaken.png"))
+        imagePath.postValue("pictures/imageTaken.png")
         onView(withId(R.id.fullName)).perform(typeText("Bayo Musa"), closeSoftKeyboard())
         onView(withId(R.id.phoneNumber)).perform(typeText("08012312312"), closeSoftKeyboard())
         onView(withId(R.id.age)).perform(scrollTo(), typeText("27"), closeSoftKeyboard())
@@ -136,12 +147,16 @@ class EntryFragmentTest {
 
     @Test
     fun whenFarmLocationNotSelectedThenDisplayError() {
-        onView(withId(R.id.profileImage)).perform(setTag("pictures/imageTaken.png"))
+        imagePath.postValue("pictures/imageTaken.png")
         onView(withId(R.id.fullName)).perform(typeText("Bayo Musa"), closeSoftKeyboard())
         onView(withId(R.id.phoneNumber)).perform(typeText("08012312312"), closeSoftKeyboard())
         onView(withId(R.id.age)).perform(scrollTo(), typeText("27"), closeSoftKeyboard())
         onView(withId(R.id.female)).perform(scrollTo(), click())
-        onView(withId(R.id.farmName)).perform(scrollTo(), typeText("SK Farms LTD"), closeSoftKeyboard())
+        onView(withId(R.id.farmName)).perform(
+            scrollTo(),
+            typeText("SK Farms LTD"),
+            closeSoftKeyboard()
+        )
 
         onView(withId(R.id.save)).perform(scrollTo(), click())
 
@@ -151,13 +166,18 @@ class EntryFragmentTest {
 
     @Test
     fun whenCoordinatesProvidedDontFormPolygonDisplayError() {
-        onView(withId(R.id.profileImage)).perform(setTag("pictures/imageTaken.png"))
+        imagePath.postValue("pictures/imageTaken.png")
         onView(withId(R.id.fullName)).perform(typeText("Bayo Musa"), closeSoftKeyboard())
         onView(withId(R.id.phoneNumber)).perform(typeText("08012312312"), closeSoftKeyboard())
         onView(withId(R.id.age)).perform(scrollTo(), typeText("27"), closeSoftKeyboard())
         onView(withId(R.id.female)).perform(scrollTo(), click())
-        onView(withId(R.id.farmName)).perform(scrollTo(), typeText("SK Farms LTD"), closeSoftKeyboard())
-        onView(withId(R.id.farmLocation)).perform(scrollTo(), setText("6.145,2.509"), closeSoftKeyboard())
+        onView(withId(R.id.farmName)).perform(
+            scrollTo(),
+            typeText("SK Farms LTD"),
+            closeSoftKeyboard()
+        )
+
+        farmLocation.postValue(FarmLocation(6.145,2.509))
 
         onView(withId(R.id.save)).perform(scrollTo(), click())
 
@@ -167,31 +187,50 @@ class EntryFragmentTest {
 
     @Test
     fun whenInputsAreAllValidThenCallViewModel() {
-        onView(withId(R.id.profileImage)).perform(setTag("pictures/imageTaken.png"))
+        imagePath.postValue("pictures/imageTaken.png")
         onView(withId(R.id.fullName)).perform(typeText("Bayo Musa"), closeSoftKeyboard())
         onView(withId(R.id.phoneNumber)).perform(typeText("08012312312"), closeSoftKeyboard())
         onView(withId(R.id.age)).perform(scrollTo(), typeText("27"), closeSoftKeyboard())
         onView(withId(R.id.female)).perform(scrollTo(), click())
-        onView(withId(R.id.farmName)).perform(scrollTo(), typeText("SK Farms LTD"), closeSoftKeyboard())
-        onView(withId(R.id.farmLocation)).perform(scrollTo(), setText("6.145,2.509"), closeSoftKeyboard())
+        onView(withId(R.id.farmName)).perform(
+            scrollTo(),
+            typeText("SK Farms LTD"),
+            closeSoftKeyboard()
+        )
+        farmLocation.postValue(FarmLocation(6.145,2.509))
 
-        scenario.onFragment {
-            it.addCoordinate(6.412, 5.981)
-            it.addCoordinate(6.302, 5.871)
-            it.addCoordinate(6.292, 5.761)
-            it.addCoordinate(6.182, 5.661)
-        }
+        locations.postValue(listOf(
+            FarmLocation(6.412, 5.981),
+            FarmLocation(6.302, 5.8710),
+            FarmLocation(6.292, 5.761),
+            FarmLocation(6.182, 5.661)
+        ))
 
         onView(withId(R.id.save)).perform(scrollTo(), click())
 
-        verify(viewModel).addFarm(ArgumentMatchers.any())
+        val entry = FarmLogEntity(
+            "pictures/imageTaken.png",
+            "Bayo Musa",
+            27,
+            "Female",
+            "SK Farms LTD",
+            FarmLocation(6.145, 2.509),
+            listOf(
+                FarmLocation(6.412, 5.981),
+                FarmLocation(6.302, 5.8710),
+                FarmLocation(6.292, 5.761),
+                FarmLocation(6.182, 5.661)
+            )
+        )
+
+        verify(viewModel).addFarm(entry)
     }
 
     @Test
     fun whenProfileImageClickedOpenImageFragment() {
-        onView(withId(R.id.profileImage))
+        onView(withId(R.id.profileImage)).perform(click())
 
-        verify(navController).navigate(R.id.image)
+        verify(navController).navigate(R.id.imageFragment)
     }
 
     @Test
@@ -228,7 +267,7 @@ class EntryFragmentTest {
 
     @Test
     fun whenFarmLayoutIsClickedTheDisplayLocationOptions() {
-        onView(withText(R.id.farmLocationLayout)).perform(click())
+        onView(withId(R.id.farmLocationLayout)).perform(scrollTo(), click())
 
         onView(withText(R.string.label_dialog_title)).check(matches(isDisplayed()))
         onView(withText(R.string.action_current_location)).check(matches(isDisplayed()))
@@ -237,20 +276,21 @@ class EntryFragmentTest {
 
     @Test
     fun whenCoordinatesLessThanThreeThenHideViewOnMap() {
-        //Do nothing, test against empty list of coordinates
+        //Do nothing, test against initial state
 
-        onView(withId(R.id.viewOnMap)).perform(scrollTo())
         onView(withId(R.id.viewOnMap)).check(matches(not(isDisplayed())))
     }
 
     @Test
     fun whenCoordinatesAreThreeOrMoreThenShowViewOnMap() {
-        scenario.onFragment {
-            it.addCoordinate(6.412, 5.981)
-            it.addCoordinate(6.302, 5.871)
-            it.addCoordinate(6.292, 5.761)
-            it.addCoordinate(6.182, 5.661)
-        }
+        locations.postValue(listOf(
+            FarmLocation(6.412, 5.981),
+            FarmLocation(6.302, 5.8710),
+            FarmLocation(6.292, 5.761),
+            FarmLocation(6.182, 5.661)
+        ))
+
+        onView(withId(R.id.viewOnMap)).perform(scrollTo())
         onView(withId(R.id.viewOnMap)).check(matches(isDisplayed()))
     }
 }

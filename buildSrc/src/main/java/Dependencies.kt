@@ -30,6 +30,7 @@ object Versions {
     const val dataBinding = "3.6.1"
     const val multiDex = "2.0.1"
     const val graphView = "v3.1.0"
+    const val location = "17.0.0"
 }
 
 object Deps {
@@ -62,6 +63,7 @@ object Deps {
     const val navigationUI = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
     const val multiDex = "androidx.multidex:multidex:${Versions.multiDex}"
     const val graphView = "com.github.PhilJay:MPAndroidChart:${Versions.graphView}"
+    const val location = "com.google.android.gms:play-services-location:${Versions.location}"
 }
 
 object TestDeps {

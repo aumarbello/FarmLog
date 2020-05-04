@@ -3,43 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/login">
+    app:startDestination="@id/loginFragment">
 
     <fragment
-        android:id="@+id/login"
+        android:id="@+id/loginFragment"
         android:label="@string/label_login"
         android:name="com.aumarbello.farmlog.ui.LoginFragment"
         tools:layout="@layout/fragment_login"
-        >
-        <action
-            android:id="@+id/to_dashboard"
-            app:destination="@id/dashboard"
-            />
-    </fragment>
+        />
 
     <fragment
-        android:id="@+id/dashboard"
+        android:id="@+id/dashboardFragment"
         android:label="@string/label_dashboard"
         android:name="com.aumarbello.farmlog.ui.DashboardFragment"
         tools:layout="@layout/fragment_dashboard"
-        >
-        <action
-            android:id="@+id/to_new_entry"
-            />
-    </fragment>
+        />
 
     <fragment
-        android:id="@+id/newEntry"
+        android:id="@+id/newEntryFragment"
         android:name="com.aumarbello.farmlog.ui.EntryFragment"
         android:label="@string/label_new_farm"
         tools:layout="@layout/fragment_entry"
         />
 
     <fragment
-        android:id="@+id/image"
+        android:id="@+id/imageFragment"
+        android:label="@string/label_image"
+        android:name="com.aumarbello.farmlog.ui.CameraFragment"
         />
 
     <fragment
-        android:id="@+id/mapLocation"
+        android:id="@+id/mapFragment"
+        android:label="@string/label_map"
+        android:name="com.aumarbello.farmlog.ui.MapFragment"
         />
 </navigation>

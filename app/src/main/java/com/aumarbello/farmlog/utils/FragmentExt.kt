@@ -22,6 +22,10 @@ fun Fragment.showSnackBar(message: String) {
     Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show()
 }
 
+fun Fragment.showSnackBar(message: Int) {
+    Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show()
+}
+
 fun Fragment.hideKeyboard() {
     view?.hideKeyboard()
 }

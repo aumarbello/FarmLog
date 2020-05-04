@@ -51,7 +51,7 @@ class LoginFragment: Fragment(R.layout.fragment_login) {
         })
 
         viewModel.response.observe(viewLifecycleOwner, Observer {
-            findNavController().navigate(R.id.to_dashboard)
+            findNavController().navigate(R.id.dashboardFragment)
         })
     }
 

@@ -56,7 +56,7 @@ class DashboardFragment: Fragment(R.layout.fragment_dashboard) {
 
     private fun setListeners() {
         binding.addLogEntry.setOnClickListener {
-            findNavController().navigate(R.id.to_new_entry)
+            findNavController().navigate(R.id.newEntryFragment)
         }
     }
 }
