@@ -22,4 +22,16 @@
     <string name="label_farm_coordinates">Farm coordinates</string>
     <string name="label_add">Add</string>
     <string name="label_view_map">View on map</string>
+    <string name="error_image_not_selected">Farmer\'s image not captured</string>
+    <string name="error_full_name">Full name format not valid</string>
+    <string name="error_phone_number">Invalid phone number entered</string>
+    <string name="error_age">Age entered not valid. Minimum age is 15.</string>
+    <string name="error_gender">Gender not selected</string>
+    <string name="error_farm_name">Farm name not provided</string>
+    <string name="error_farm_location">Farm location not provided</string>
+    <string name="error_coordinates">Incomplete farm coordinates, at least three coordinates required</string>
+    <string name="label_dialog_title">"How would like to pick location "</string>
+    <string name="action_current_location">Current location</string>
+    <string name="action_pick_on_map">Pick on map</string>
+    <string name="label_new_farm">New Farm</string>
 </resources>

@@ -27,4 +27,19 @@
             android:id="@+id/to_new_entry"
             />
     </fragment>
+
+    <fragment
+        android:id="@+id/newEntry"
+        android:name="com.aumarbello.farmlog.ui.EntryFragment"
+        android:label="@string/label_new_farm"
+        tools:layout="@layout/fragment_entry"
+        />
+
+    <fragment
+        android:id="@+id/image"
+        />
+
+    <fragment
+        android:id="@+id/mapLocation"
+        />
 </navigation>
