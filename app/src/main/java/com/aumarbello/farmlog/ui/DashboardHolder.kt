@@ -2,7 +2,9 @@ package com.aumarbello.farmlog.ui
 
 import android.graphics.Color
 import android.view.View
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.aumarbello.farmlog.R
 import com.aumarbello.farmlog.databinding.ItemDashboardBarChartBinding
 import com.aumarbello.farmlog.databinding.ItemDashboardCountBinding
 import com.aumarbello.farmlog.databinding.ItemDashboardPieChartBinding
@@ -43,11 +45,14 @@ abstract class DashboardHolder(view: View) : RecyclerView.ViewHolder(view) {
                         valueFormatter = object : ValueFormatter() {
                             val labels = item.items.keys.toList()
                             override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-                                return labels[value.toInt()]
+                                return labels[value.toInt()][0].toString()
                             }
+
                         }
                         position = XAxis.XAxisPosition.BOTTOM
                         gridColor = Color.TRANSPARENT
+                        textSize = 9f
+                        textColor = ResourcesCompat.getColor(itemView.resources, R.color.colorOnSurface, itemView.context.theme)
                     }
 
                     data = toBarData()
@@ -67,6 +72,12 @@ abstract class DashboardHolder(view: View) : RecyclerView.ViewHolder(view) {
             }
             val dataSet = BarDataSet(entries, "").apply {
                 colors = getColorsForGraph(1)
+                valueFormatter = object : ValueFormatter() {
+                    override fun getBarLabel(barEntry: BarEntry?): String {
+                        return barEntry?.y?.toInt()?.toString() ?: "0"
+                    }
+                }
+                valueTextColor = ResourcesCompat.getColor(itemView.resources, R.color.colorOnSurface, itemView.context.theme)
             }
             return BarData(dataSet).apply {
                 barWidth = 0.9f
@@ -85,8 +96,16 @@ abstract class DashboardHolder(view: View) : RecyclerView.ViewHolder(view) {
                     isRotationEnabled = false
                     data = toPieData()
 
+                    setEntryLabelTextSize(7f)
                     setUsePercentValues(true)
                     setEntryLabelColor(Color.DKGRAY)
+
+                    setHoleColor(ResourcesCompat.getColor(itemView.resources, R.color.colorSurface, itemView.context.theme))
+
+                    legend.also {
+                        it.textColor = ResourcesCompat.getColor(itemView.resources, R.color.colorOnSurface, itemView.context.theme)
+                        it.textSize = 9f
+                    }
 
                     invalidate()
                 }
@@ -101,7 +120,7 @@ abstract class DashboardHolder(view: View) : RecyclerView.ViewHolder(view) {
                         return "${value.toInt()}%"
                     }
                 }
-                valueTextSize = 16f
+                valueTextSize = 8f
                 colors = getColorsForGraph(entries.size)
             }
 
@@ -111,7 +130,7 @@ abstract class DashboardHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private companion object {
         fun getColorsForGraph(numberOfColors: Int): List<Int> {
-            val colors = listOf(Color.GRAY, Color.YELLOW, Color.RED, Color.BLUE)
+            val colors = listOf(Color.parseColor("#E4BE9E"), Color.parseColor("#FAFF70"), Color.parseColor("#6564DB"))
 
             return colors.subList(0, numberOfColors)
         }

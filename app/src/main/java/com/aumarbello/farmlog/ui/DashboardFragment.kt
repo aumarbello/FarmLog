@@ -9,10 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.aumarbello.farmlog.R
 import com.aumarbello.farmlog.databinding.FragmentDashboardBinding
 import com.aumarbello.farmlog.di.FarmLogViewModelFactory
-import com.aumarbello.farmlog.utils.EventObserver
-import com.aumarbello.farmlog.utils.appComponent
-import com.aumarbello.farmlog.utils.fadeView
-import com.aumarbello.farmlog.utils.showSnackBar
+import com.aumarbello.farmlog.utils.*
 import com.aumarbello.farmlog.viewmodels.DashboardViewModel
 import javax.inject.Inject
 
@@ -35,6 +32,7 @@ class DashboardFragment: Fragment(R.layout.fragment_dashboard) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentDashboardBinding.bind(view)
         binding.dashboardItems.adapter = adapter
+        binding.dashboardItems.addItemDecoration(GridSpacingDecorator())
 
         setObservers()
         setListeners()

@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#3C3C3C</color>
     <color name="colorGrey">@android:color/darker_gray</color>
     <color name="colorAccent">#FF5722</color>
+    <color name="colorOnSurface">@color/material_on_surface_emphasis_medium</color>
+    <color name="colorSurface">@color/material_on_background_emphasis_medium</color>
 </resources>
