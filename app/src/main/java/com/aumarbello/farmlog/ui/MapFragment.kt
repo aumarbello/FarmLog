@@ -13,6 +13,7 @@ import com.aumarbello.farmlog.R
 import com.aumarbello.farmlog.di.FarmLogViewModelFactory
 import com.aumarbello.farmlog.models.FarmLocation
 import com.aumarbello.farmlog.utils.appComponent
+import com.aumarbello.farmlog.utils.updateToolbarTitle
 import com.aumarbello.farmlog.viewmodels.EntrySharedViewModel
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
@@ -49,6 +50,7 @@ class MapFragment : Fragment(R.layout.fragment_map) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        updateToolbarTitle(R.string.label_map)
 
         mapView = view as MapView
 

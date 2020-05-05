@@ -36,6 +36,7 @@ class LoginFragment: Fragment(R.layout.fragment_login) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentLoginBinding.bind(view)
+        updateToolbarTitle(R.string.label_login)
 
         setObservers()
         setListeners()

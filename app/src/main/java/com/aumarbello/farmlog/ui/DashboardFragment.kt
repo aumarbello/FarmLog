@@ -31,8 +31,12 @@ class DashboardFragment: Fragment(R.layout.fragment_dashboard) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentDashboardBinding.bind(view)
-        binding.dashboardItems.adapter = adapter
-        binding.dashboardItems.addItemDecoration(GridSpacingDecorator())
+        updateToolbarTitle(R.string.label_dashboard)
+
+        binding.dashboardItems.also {
+            it.adapter = adapter
+            it.addItemDecoration(GridSpacingDecorator())
+        }
 
         viewModel.loadDashboard()
 

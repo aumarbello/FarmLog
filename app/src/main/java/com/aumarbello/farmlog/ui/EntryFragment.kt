@@ -26,10 +26,7 @@ import com.aumarbello.farmlog.databinding.FragmentEntryBinding
 import com.aumarbello.farmlog.di.FarmLogViewModelFactory
 import com.aumarbello.farmlog.models.FarmLocation
 import com.aumarbello.farmlog.models.FarmLogEntity
-import com.aumarbello.farmlog.utils.EventObserver
-import com.aumarbello.farmlog.utils.appComponent
-import com.aumarbello.farmlog.utils.fadeView
-import com.aumarbello.farmlog.utils.showSnackBar
+import com.aumarbello.farmlog.utils.*
 import com.aumarbello.farmlog.viewmodels.EntrySharedViewModel
 import com.aumarbello.farmlog.viewmodels.EntryViewModel
 import com.google.android.gms.common.ConnectionResult
@@ -66,6 +63,7 @@ class EntryFragment : Fragment(R.layout.fragment_entry) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentEntryBinding.bind(view)
+        updateToolbarTitle(R.string.label_new_farm)
 
         coordinatesAdapter = CoordinatesAdapter(sharedViewModel::removeCoordinate)
         binding.coordinateList.adapter = coordinatesAdapter

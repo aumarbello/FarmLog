@@ -2,6 +2,8 @@ package com.aumarbello.farmlog.utils
 
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import com.aumarbello.farmlog.FarmLogApplication
@@ -33,4 +35,13 @@ fun Fragment.hideKeyboard() {
 fun View.hideKeyboard() {
     val imm = context.getSystemService<InputMethodManager>()
     imm?.hideSoftInputFromWindow(windowToken, 0)
+}
+
+fun Fragment.updateToolbarTitle(@StringRes title: Int) {
+    val activity = requireActivity()
+    if (activity is AppCompatActivity) {
+        activity.supportActionBar?.also {
+            it.title = getString(title)
+        }
+    }
 }
