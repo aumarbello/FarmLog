@@ -20,8 +20,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun providesUserAuthenticator(): UserAuthenticator {
-        return InMemoryAuthenticator()
+    fun providesUserAuthenticator(context: Context): UserAuthenticator {
+        return InMemoryAuthenticator(context)
     }
 
     @Provides

@@ -9,4 +9,6 @@ class FakeUserAuthenticator (
     override suspend fun authenticate(email: String, password: String): Boolean {
         return email == testEmail && password == testPassword
     }
+
+    override fun isUserLoggedIn() = false
 }
