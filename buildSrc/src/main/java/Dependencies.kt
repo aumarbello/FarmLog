@@ -3,7 +3,7 @@
 object Versions {
     const val kotlin = "1.3.41"
     const val gradlePlugin = "3.4.2"
-    const val minSdk = 19
+    const val minSdk = 21
     const val targetSdk = 29
     const val compileSdk = 29
     const val versionCode = 1
@@ -32,6 +32,8 @@ object Versions {
     const val multiDex = "2.0.1"
     const val graphView = "v3.1.0"
     const val location = "17.0.0"
+    const val mapBox = "9.1.0"
+    const val mapBoxAnnotations = "0.8.0"
 }
 
 object Deps {
@@ -65,6 +67,8 @@ object Deps {
     const val multiDex = "androidx.multidex:multidex:${Versions.multiDex}"
     const val graphView = "com.github.PhilJay:MPAndroidChart:${Versions.graphView}"
     const val location = "com.google.android.gms:play-services-location:${Versions.location}"
+    const val mapBox = "com.mapbox.mapboxsdk:mapbox-android-sdk:${Versions.mapBox}"
+    const val mapBoxAnnotation = "com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v9:${Versions.mapBoxAnnotations}"
 }
 
 object TestDeps {

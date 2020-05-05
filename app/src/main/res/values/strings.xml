@@ -37,4 +37,8 @@
     <string name="format_location">%f,%f</string>
     <string name="label_image">Image</string>
     <string name="label_map">Map</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiYXVtYXJiZWxsbyIsImEiOiJjazl0eGRjb2kwOGdwM2hub3QyOGE1cHc3In0.kdjd_-x4NU46HclzvwXtGg</string>
+    <string name="label_location_prompt">Confirm location selected</string>
+    <string name="action_confirm">Confirm</string>
+    <string name="action_cancel">Cancel</string>
 </resources>

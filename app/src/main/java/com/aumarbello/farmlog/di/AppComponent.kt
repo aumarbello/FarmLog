@@ -4,6 +4,7 @@ import android.app.Application
 import com.aumarbello.farmlog.ui.DashboardFragment
 import com.aumarbello.farmlog.ui.EntryFragment
 import com.aumarbello.farmlog.ui.LoginFragment
+import com.aumarbello.farmlog.ui.MapFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -21,4 +22,5 @@ interface AppComponent {
     fun inject(fragment: LoginFragment)
     fun inject(fragment: DashboardFragment)
     fun inject(fragment: EntryFragment)
+    fun inject(fragment: MapFragment)
 }

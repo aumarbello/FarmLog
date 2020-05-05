@@ -81,6 +81,8 @@ dependencies {
     implementation Deps.multiDex
     implementation Deps.graphView
     implementation Deps.location
+    implementation Deps.mapBox
+    implementation Deps.mapBoxAnnotation
 
     kapt Deps.daggerCompiler
     kapt Deps.roomCompiler

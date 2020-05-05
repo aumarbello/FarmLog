@@ -1,6 +1,7 @@
 package com.aumarbello.farmlog
 
 import androidx.multidex.MultiDexApplication
+import com.mapbox.mapboxsdk.Mapbox
 import timber.log.Timber
 
 class FarmLogApplication: MultiDexApplication() {
@@ -8,5 +9,6 @@ class FarmLogApplication: MultiDexApplication() {
         super.onCreate()
 
         Timber.plant(Timber.DebugTree())
+        Mapbox.getInstance(applicationContext, getString(R.string.mapbox_access_token))
     }
 }
