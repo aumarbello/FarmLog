@@ -34,6 +34,8 @@ class DashboardFragment: Fragment(R.layout.fragment_dashboard) {
         binding.dashboardItems.adapter = adapter
         binding.dashboardItems.addItemDecoration(GridSpacingDecorator())
 
+        viewModel.loadDashboard()
+
         setObservers()
         setListeners()
     }
@@ -49,6 +51,8 @@ class DashboardFragment: Fragment(R.layout.fragment_dashboard) {
 
         viewModel.response.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
+
+            binding.tvEmpty.fadeView(it.isEmpty())
         })
     }
 

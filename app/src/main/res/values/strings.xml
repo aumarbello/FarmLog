@@ -41,4 +41,5 @@
     <string name="label_location_prompt">Confirm location selected</string>
     <string name="action_confirm">Confirm</string>
     <string name="action_cancel">Cancel</string>
+    <string name="label_no_entry">No farms recorded yet.</string>
 </resources>
