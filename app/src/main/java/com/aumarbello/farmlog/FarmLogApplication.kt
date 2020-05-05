@@ -11,6 +11,6 @@ class FarmLogApplication: MultiDexApplication() {
         Timber.plant(Timber.DebugTree())
         try {
             Mapbox.getInstance(applicationContext, getString(R.string.mapbox_access_token))
-        }catch (ex: UnsatisfiedLinkError) {}
+        }catch (ex: Throwable) {}
     }
 }
