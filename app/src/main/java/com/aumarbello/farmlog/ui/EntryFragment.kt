@@ -34,11 +34,13 @@ import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.mapbox.mapboxsdk.geometry.LatLng
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 class EntryFragment : Fragment(R.layout.fragment_entry) {
     @Inject
@@ -144,6 +146,17 @@ class EntryFragment : Fragment(R.layout.fragment_entry) {
 
         binding.farmLocationLayout.setOnClickListener {
             showOptionsDialog(MapFragment.launchSingle)
+        }
+
+        binding.viewOnMap.setOnClickListener {
+            val coordinates = (sharedViewModel.locations.value
+                ?: return@setOnClickListener).map { LatLng(it.latitude, it.longitude) }
+            val args = Bundle().apply {
+                putString(MapFragment.launchMode, MapFragment.launchDisplay)
+                putParcelableArrayList(MapFragment.displayCoordinates, ArrayList(coordinates))
+            }
+
+            findNavController().navigate(R.id.mapFragment, args)
         }
     }
 
