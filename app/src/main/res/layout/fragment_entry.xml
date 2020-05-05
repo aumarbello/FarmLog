@@ -126,6 +126,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/label_male"
                     android:textSize="14sp"
+                    android:textColor="@color/colorOnSurface"
                     />
 
                 <RadioButton
@@ -133,6 +134,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/label_female"
+                    android:textColor="@color/colorOnSurface"
                     android:layout_marginStart="@dimen/spacing_medium"
                     android:textSize="14sp"
                     />
