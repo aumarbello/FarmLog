@@ -30,5 +30,6 @@
         android:id="@+id/mapFragment"
         android:label="@string/label_map"
         android:name="com.aumarbello.farmlog.ui.MapFragment"
+        tools:layout="@layout/fragment_map"
         />
 </navigation>
