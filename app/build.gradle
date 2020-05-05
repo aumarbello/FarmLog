@@ -91,6 +91,7 @@ dependencies {
     androidTestImplementation TestDeps.testRules
     androidTestImplementation TestDeps.testExt
     androidTestImplementation TestDeps.espressoCore
+    androidTestImplementation TestDeps.espressoIntents
     debugImplementation TestDeps.fragment
     androidTestImplementation TestDeps.mockitoAndroid
     androidTestImplementation TestDeps.couroutineTest

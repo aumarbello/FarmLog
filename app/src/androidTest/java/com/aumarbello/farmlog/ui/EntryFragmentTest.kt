@@ -1,5 +1,9 @@
 package com.aumarbello.farmlog.ui
 
+import android.app.Activity
+import android.app.Instrumentation
+import android.content.Intent
+import android.provider.MediaStore
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.MutableLiveData
@@ -8,6 +12,11 @@ import androidx.navigation.Navigation
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.intent.Intents.intended
+import androidx.test.espresso.intent.Intents.intending
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasExtraWithKey
+import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.aumarbello.farmlog.CoroutineTestRule
@@ -22,6 +31,7 @@ import com.aumarbello.farmlog.utils.ViewModelUtil
 import com.aumarbello.farmlog.viewmodels.EntrySharedViewModel
 import com.aumarbello.farmlog.viewmodels.EntryViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.not
 import org.junit.Before
 import org.junit.Rule
@@ -39,6 +49,9 @@ class EntryFragmentTest {
 
     @get:Rule
     val coroutinesRule = CoroutineTestRule()
+
+    @get:Rule
+    val intentsTestRule = IntentsTestRule(FragmentScenario.EmptyFragmentActivity::class.java)
 
     private val response = MutableLiveData<Unit>()
     private val loader = MutableLiveData<Boolean>()
@@ -60,7 +73,7 @@ class EntryFragmentTest {
         `when`(viewModel.loader).thenReturn(loader)
         `when`(viewModel.response).thenReturn(response)
         `when`(viewModel.error).thenReturn(error)
-        
+
         `when`(sharedViewModel.imagePath).thenReturn(imagePath)
         `when`(sharedViewModel.locations).thenReturn(locations)
         `when`(sharedViewModel.farmLocation).thenReturn(farmLocation)
@@ -177,7 +190,7 @@ class EntryFragmentTest {
             closeSoftKeyboard()
         )
 
-        farmLocation.postValue(FarmLocation(6.145,2.509))
+        farmLocation.postValue(FarmLocation(6.145, 2.509))
 
         onView(withId(R.id.save)).perform(scrollTo(), click())
 
@@ -197,14 +210,16 @@ class EntryFragmentTest {
             typeText("SK Farms LTD"),
             closeSoftKeyboard()
         )
-        farmLocation.postValue(FarmLocation(6.145,2.509))
+        farmLocation.postValue(FarmLocation(6.145, 2.509))
 
-        locations.postValue(listOf(
-            FarmLocation(6.412, 5.981),
-            FarmLocation(6.302, 5.8710),
-            FarmLocation(6.292, 5.761),
-            FarmLocation(6.182, 5.661)
-        ))
+        locations.postValue(
+            listOf(
+                FarmLocation(6.412, 5.981),
+                FarmLocation(6.302, 5.8710),
+                FarmLocation(6.292, 5.761),
+                FarmLocation(6.182, 5.661)
+            )
+        )
 
         onView(withId(R.id.save)).perform(scrollTo(), click())
 
@@ -228,9 +243,21 @@ class EntryFragmentTest {
 
     @Test
     fun whenProfileImageClickedOpenImageFragment() {
+        intending(hasAction(MediaStore.ACTION_IMAGE_CAPTURE)).respondWith(
+            Instrumentation.ActivityResult(
+                Activity.RESULT_OK,
+                Intent()
+            )
+        )
+
         onView(withId(R.id.profileImage)).perform(click())
 
-        verify(navController).navigate(R.id.imageFragment)
+        intended(
+            allOf(
+                hasAction(MediaStore.ACTION_IMAGE_CAPTURE),
+                hasExtraWithKey(MediaStore.EXTRA_OUTPUT)
+            )
+        )
     }
 
     @Test
@@ -283,12 +310,14 @@ class EntryFragmentTest {
 
     @Test
     fun whenCoordinatesAreThreeOrMoreThenShowViewOnMap() {
-        locations.postValue(listOf(
-            FarmLocation(6.412, 5.981),
-            FarmLocation(6.302, 5.8710),
-            FarmLocation(6.292, 5.761),
-            FarmLocation(6.182, 5.661)
-        ))
+        locations.postValue(
+            listOf(
+                FarmLocation(6.412, 5.981),
+                FarmLocation(6.302, 5.8710),
+                FarmLocation(6.292, 5.761),
+                FarmLocation(6.182, 5.661)
+            )
+        )
 
         onView(withId(R.id.viewOnMap)).perform(scrollTo())
         onView(withId(R.id.viewOnMap)).check(matches(isDisplayed()))

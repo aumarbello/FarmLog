@@ -27,12 +27,6 @@
         />
 
     <fragment
-        android:id="@+id/imageFragment"
-        android:label="@string/label_image"
-        android:name="com.aumarbello.farmlog.ui.CameraFragment"
-        />
-
-    <fragment
         android:id="@+id/mapFragment"
         android:label="@string/label_map"
         android:name="com.aumarbello.farmlog.ui.MapFragment"

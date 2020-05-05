@@ -1,15 +1,21 @@
 package com.aumarbello.farmlog.ui
 
 import android.Manifest
+import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.widget.ImageView
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -32,6 +38,8 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.regex.Pattern
 import javax.inject.Inject
 
@@ -44,7 +52,9 @@ class EntryFragment : Fragment(R.layout.fragment_entry) {
     private lateinit var coordinatesAdapter: CoordinatesAdapter
 
     private lateinit var launchMode: String
+    private lateinit var currentImagePath: String
     private val locationReq = 11
+    private val imageReq = 21
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +72,14 @@ class EntryFragment : Fragment(R.layout.fragment_entry) {
 
         setObservers()
         setListeners()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == imageReq && resultCode == Activity.RESULT_OK) {
+            sharedViewModel.setImagePath(currentImagePath)
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -94,8 +112,8 @@ class EntryFragment : Fragment(R.layout.fragment_entry) {
             if(imageFile.exists()) {
                 val bitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
                 with(binding.profileImage) {
+                    scaleType = ImageView.ScaleType.CENTER_CROP
                     setImageBitmap(bitmap)
-                    tag = it
                 }
             }
         })
@@ -119,7 +137,7 @@ class EntryFragment : Fragment(R.layout.fragment_entry) {
         }
 
         binding.profileImage.setOnClickListener {
-            findNavController().navigate(R.id.imageFragment)
+            takePicture()
         }
 
         binding.addCoordinate.setOnClickListener {
@@ -293,5 +311,26 @@ class EntryFragment : Fragment(R.layout.fragment_entry) {
             putString(MapFragment.launchMode, launchMode)
         }
         findNavController().navigate(R.id.mapFragment, args)
+    }
+
+    private fun takePicture() {
+        val dir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val timeStamp = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(Date())
+
+        val imageFile = File.createTempFile("Avatar_$timeStamp", ".jpg", dir).apply {
+            currentImagePath = absolutePath
+        }
+
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { intent ->
+            intent.resolveActivity(requireContext().packageManager)?.also {
+                val uri = FileProvider.getUriForFile(
+                    requireContext(),
+                    "com.aumarbello.farmlog.fileprovider",
+                    imageFile
+                )
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
+                startActivityForResult(intent, imageReq)
+            }
+        }
     }
 }
