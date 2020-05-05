@@ -289,7 +289,7 @@ class EntryFragment : Fragment(R.layout.fragment_entry) {
         val locationPerm = Manifest.permission.ACCESS_FINE_LOCATION
         if (ActivityCompat.checkSelfPermission(requireContext(), locationPerm) == PackageManager.PERMISSION_DENIED) {
             this.launchMode = launchMode
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(locationPerm), locationReq)
+            requestPermissions(arrayOf(locationPerm), locationReq)
             return
         }
 
