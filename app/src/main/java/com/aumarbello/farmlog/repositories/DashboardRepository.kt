@@ -142,7 +142,7 @@ class DashboardRepository @Inject constructor(private val dao: FarmLogDAO, priva
         return PieChartItem(
             "Gender distribution",
             entities.size,
-            mapOf(foldGender("M"), foldGender("F"))
+            mapOf(foldGender("M"), foldGender("F")).filter { it.value != 0 }
         )
     }
 
