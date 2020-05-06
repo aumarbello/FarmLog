@@ -9,8 +9,6 @@ class FarmLogApplication: MultiDexApplication() {
         super.onCreate()
 
         Timber.plant(Timber.DebugTree())
-        try {
-            Mapbox.getInstance(applicationContext, getString(R.string.mapbox_access_token))
-        }catch (ex: Throwable) {}
+        Mapbox.getInstance(applicationContext, getString(R.string.mapbox_access_token))
     }
 }

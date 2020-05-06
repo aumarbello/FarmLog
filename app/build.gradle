@@ -22,6 +22,10 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "com.aumarbello.farmlog.runner.FarmLogTestRunner"
+
+        ndk {
+            abiFilters "x86", "arm64-v8a", "x86_64", "armeabi-v8a"
+        }
     }
 
     buildTypes {
