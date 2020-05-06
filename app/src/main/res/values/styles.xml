@@ -10,4 +10,10 @@
     </style>
 
     <style name="TestContainer" parent="Theme.MaterialComponents.NoActionBar"/>
+
+    <style name="SplashTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:windowBackground">@drawable/bg_splash</item>
+    </style>
 </resources>
