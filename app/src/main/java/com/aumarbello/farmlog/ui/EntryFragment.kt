@@ -68,7 +68,12 @@ class EntryFragment : Fragment(R.layout.fragment_entry) {
         updateToolbarTitle(R.string.label_new_farm)
 
         coordinatesAdapter = CoordinatesAdapter(sharedViewModel::removeCoordinate)
-        binding.coordinateList.adapter = coordinatesAdapter
+
+        val spacing = resources.getDimension(R.dimen.spacing_tiny)
+        binding.coordinateList.also {
+            it.adapter = coordinatesAdapter
+            it.addItemDecoration(GridSpacingDecorator(spacing.toInt()))
+        }
 
         setObservers()
         setListeners()
