@@ -281,9 +281,9 @@ class EntryFragment : Fragment(R.layout.fragment_entry) {
 
     private fun getSelectedGender(): String {
         return if (binding.genderGroup.checkedRadioButtonId == R.id.male)
-            "Male"
+            "M"
         else
-            "Female"
+            "F"
     }
 
     private fun showOptionsDialog(launchMode: String) {
