@@ -52,7 +52,11 @@ class LoginFragment: Fragment(R.layout.fragment_login) {
         })
 
         viewModel.response.observe(viewLifecycleOwner, Observer {
-            findNavController().navigate(R.id.dashboardFragment)
+            findNavController().run {
+                popBackStack()
+
+                navigate(R.id.dashboardFragment)
+            }
         })
     }
 

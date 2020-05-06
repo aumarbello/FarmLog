@@ -10,6 +10,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.transition.Slide
 import android.view.View
 import android.widget.ImageView
 import androidx.annotation.StringRes
@@ -34,6 +35,7 @@ import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.google.android.material.transition.MaterialContainerTransform
 import com.mapbox.mapboxsdk.geometry.LatLng
 import java.io.File
 import java.text.SimpleDateFormat
@@ -61,6 +63,8 @@ class EntryFragment : Fragment(R.layout.fragment_entry) {
         appComponent?.inject(this)
         viewModel = ViewModelProvider(this, factory)[EntryViewModel::class.java]
         sharedViewModel = ViewModelProvider(requireActivity(), factory)[EntrySharedViewModel::class.java]
+
+        postponeEnterTransition()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -77,6 +81,8 @@ class EntryFragment : Fragment(R.layout.fragment_entry) {
 
         setObservers()
         setListeners()
+
+        startTransitions()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -311,15 +317,24 @@ class EntryFragment : Fragment(R.layout.fragment_entry) {
 
         val client = LocationServices.getFusedLocationProviderClient(requireContext())
         client.lastLocation.addOnSuccessListener {
+            if (it == null) {
+                locationRetrievalFailed(launchMode)
+                return@addOnSuccessListener
+            }
+
             if (launchMode == MapFragment.launchSingle) {
                 sharedViewModel.setFarmLocation(FarmLocation(it.latitude, it.longitude))
             } else {
                 sharedViewModel.addCoordinate(FarmLocation(it.latitude, it.longitude))
             }
         }.addOnFailureListener {
-            showSnackBar("Failed to retrieve current location, kindly pick location on map")
-            openMap(launchMode)
+            locationRetrievalFailed(launchMode)
         }
+    }
+
+    private fun locationRetrievalFailed(launchMode: String) {
+        showSnackBar("Failed to retrieve current location, kindly pick location on map")
+        openMap(launchMode)
     }
 
     private fun openMap(launchMode: String) {
@@ -348,5 +363,18 @@ class EntryFragment : Fragment(R.layout.fragment_entry) {
                 startActivityForResult(intent, imageReq)
             }
         }
+    }
+
+    private fun startTransitions() {
+        enterTransition = MaterialContainerTransform(requireContext()).apply {
+            startView = requireActivity().findViewById(R.id.addLogEntry)
+            endView = binding.root
+        }
+
+        returnTransition = Slide().apply {
+            duration = 180
+        }
+
+        startPostponedEnterTransition()
     }
 }

@@ -5,7 +5,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.aumarbello.farmlog.R
 import com.aumarbello.farmlog.databinding.FragmentDashboardBinding
 import com.aumarbello.farmlog.di.FarmLogViewModelFactory
@@ -41,7 +40,6 @@ class DashboardFragment: Fragment(R.layout.fragment_dashboard) {
         viewModel.loadDashboard()
 
         setObservers()
-        setListeners()
     }
 
     private fun setObservers() {
@@ -58,11 +56,5 @@ class DashboardFragment: Fragment(R.layout.fragment_dashboard) {
 
             binding.tvEmpty.fadeView(it.isEmpty())
         })
-    }
-
-    private fun setListeners() {
-        binding.addLogEntry.setOnClickListener {
-            findNavController().navigate(R.id.newEntryFragment)
-        }
     }
 }

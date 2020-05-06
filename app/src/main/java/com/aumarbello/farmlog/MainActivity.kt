@@ -1,7 +1,9 @@
 package com.aumarbello.farmlog
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import com.aumarbello.farmlog.data.UserAuthenticator
 import com.aumarbello.farmlog.di.DaggerAppComponent
@@ -16,12 +18,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         DaggerAppComponent.builder().application(application).create().inject(this)
+        val navController = findNavController(R.id.container)
 
         if (authenticator.isUserLoggedIn()) {
-            findNavController(R.id.container).apply {
+            navController.run {
                 popBackStack()
                 navigate(R.id.dashboardFragment)
             }
+        }
+
+        val fab = findViewById<View>(R.id.addLogEntry)
+        fab.setOnClickListener {
+            navController.navigate(R.id.newEntryFragment)
+        }
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            fab.isVisible = destination.id == R.id.dashboardFragment
         }
     }
 }
