@@ -15,14 +15,14 @@ object TestObjects {
     private const val imagePath = "home/aumarbello/Pictures/example.png"
 
     val entries = listOf(
-        FarmLogEntity(imagePath, "Ola Musa", 35, "M", "Musa and sons Farm", location, coordinates, 1588004815550,1),
-        FarmLogEntity(imagePath, "Chukwudi Deji", 29, "M", "CK Farms", location, coordinates, 1588004815550,2),
-        FarmLogEntity(imagePath, "Sanni Banjo", 38, "M", "SB Farm Ltd", location, coordinates, 1588091215550,3),
-        FarmLogEntity(imagePath, "Pauline John", 31, "F", "PJ Industrial Farm", location, coordinates, 1588177615550, 4),
-        FarmLogEntity(imagePath, "Seyi Kano", 37, "F", "SK Allied Farm", location, coordinates, 1588264015550,5)
+        FarmLogEntity(imagePath, "Ola Musa", 35, "08132434141","M", "Musa and sons Farm", location, coordinates, 1588004815550,1),
+        FarmLogEntity(imagePath, "Chukwudi Deji", 29, "08132434141","M", "CK Farms", location, coordinates, 1588004815550,2),
+        FarmLogEntity(imagePath, "Sanni Banjo", 38, "08132434141","M", "SB Farm Ltd", location, coordinates, 1588091215550,3),
+        FarmLogEntity(imagePath, "Pauline John", 31, "08132434141","F", "PJ Industrial Farm", location, coordinates, 1588177615550, 4),
+        FarmLogEntity(imagePath, "Seyi Kano", 37, "08132434141","F", "SK Allied Farm", location, coordinates, 1588264015550,5)
     )
 
-    val singleEntry = FarmLogEntity(imagePath, "Lizzy James", 43, "F", "L&J Farms", location, coordinates, 1588264015550, 6)
+    val singleEntry = FarmLogEntity(imagePath, "Lizzy James", 43, "08132434141","F", "L&J Farms", location, coordinates, 1588264015550, 6)
 
     val dashboardItems = listOf(
         CountItem("Users onboarded", 5),

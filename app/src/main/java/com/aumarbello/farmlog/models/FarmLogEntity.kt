@@ -11,6 +11,7 @@ data class FarmLogEntity (
     val imagePath: String,
     val farmersName: String,
     val farmersAge: Int,
+    val farmersPhoneNumber: String,
     val farmersGender: String,
 
     val farmName: String,

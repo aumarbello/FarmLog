@@ -272,6 +272,7 @@ class EntryFragment : Fragment(R.layout.fragment_entry) {
             sharedViewModel.imagePath.value!!,
             binding.fullName.text.toString(),
             binding.age.text.toString().toInt(),
+            binding.phoneNumber.text.toString(),
             getSelectedGender(),
             binding.farmName.text.toString(),
             sharedViewModel.farmLocation.value!!,

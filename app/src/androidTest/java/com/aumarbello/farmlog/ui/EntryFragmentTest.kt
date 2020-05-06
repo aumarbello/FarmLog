@@ -227,6 +227,7 @@ class EntryFragmentTest {
             "pictures/imageTaken.png",
             "Bayo Musa",
             27,
+            "08132434141",
             "F",
             "SK Farms LTD",
             FarmLocation(6.145, 2.509),
