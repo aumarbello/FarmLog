@@ -37,11 +37,12 @@ fun View.hideKeyboard() {
     imm?.hideSoftInputFromWindow(windowToken, 0)
 }
 
-fun Fragment.updateToolbarTitle(@StringRes title: Int) {
+fun Fragment.updateToolbarTitle(@StringRes title: Int, showBackButton: Boolean = false) {
     val activity = requireActivity()
     if (activity is AppCompatActivity) {
         activity.supportActionBar?.also {
             it.title = getString(title)
+            it.setDisplayHomeAsUpEnabled(showBackButton)
         }
     }
 }

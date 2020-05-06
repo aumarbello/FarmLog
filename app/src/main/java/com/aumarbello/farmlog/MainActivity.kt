@@ -1,6 +1,7 @@
 package com.aumarbello.farmlog
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -35,5 +36,12 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             fab.isVisible = destination.id == R.id.dashboardFragment
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == android.R.id.home) {
+            findNavController(R.id.container).popBackStack()
+        } else
+            super.onOptionsItemSelected(item)
     }
 }

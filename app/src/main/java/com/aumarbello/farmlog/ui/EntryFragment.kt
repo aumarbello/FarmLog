@@ -69,7 +69,7 @@ class EntryFragment : Fragment(R.layout.fragment_entry) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentEntryBinding.bind(view)
-        updateToolbarTitle(R.string.label_new_farm)
+        updateToolbarTitle(R.string.label_new_farm, true)
 
         coordinatesAdapter = CoordinatesAdapter(sharedViewModel::removeCoordinate)
 
