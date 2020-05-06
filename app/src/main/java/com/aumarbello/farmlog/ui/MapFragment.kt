@@ -50,7 +50,7 @@ class MapFragment : Fragment(R.layout.fragment_map) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        updateToolbarTitle(R.string.label_map)
+        updateToolbarTitle(R.string.label_map, true)
 
         mapView = view as MapView
 
