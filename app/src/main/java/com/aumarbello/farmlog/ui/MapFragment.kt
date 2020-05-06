@@ -7,8 +7,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.aumarbello.farmlog.R
 import com.aumarbello.farmlog.di.FarmLogViewModelFactory
 import com.aumarbello.farmlog.models.FarmLocation
@@ -33,10 +33,10 @@ class MapFragment : Fragment(R.layout.fragment_map) {
 
     private var currentLocation: Symbol? = null
     private lateinit var mode: String
-    private lateinit var viewModel: EntrySharedViewModel
     private lateinit var symbolManager: SymbolManager
     private lateinit var mapView: MapView
 
+    private val viewModel by navGraphViewModels<EntrySharedViewModel>(R.id.new_entry) { factory }
     private val locationReq = 91
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +45,6 @@ class MapFragment : Fragment(R.layout.fragment_map) {
 
         mode = arguments?.getString(launchMode, null)
             ?: throw IllegalArgumentException("Failed to pass required coordinates argument")
-        viewModel = ViewModelProvider(requireActivity(), factory)[EntrySharedViewModel::class.java]
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

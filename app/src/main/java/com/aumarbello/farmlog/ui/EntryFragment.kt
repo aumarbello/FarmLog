@@ -19,9 +19,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.aumarbello.farmlog.R
 import com.aumarbello.farmlog.databinding.FragmentEntryBinding
 import com.aumarbello.farmlog.di.FarmLogViewModelFactory
@@ -47,8 +48,6 @@ import kotlin.collections.ArrayList
 class EntryFragment : Fragment(R.layout.fragment_entry) {
     @Inject
     lateinit var factory: FarmLogViewModelFactory
-    private lateinit var viewModel: EntryViewModel
-    private lateinit var sharedViewModel: EntrySharedViewModel
     private lateinit var binding: FragmentEntryBinding
     private lateinit var coordinatesAdapter: CoordinatesAdapter
 
@@ -57,12 +56,13 @@ class EntryFragment : Fragment(R.layout.fragment_entry) {
     private val locationReq = 11
     private val imageReq = 21
 
+    private val viewModel by viewModels<EntryViewModel> { factory }
+    private val sharedViewModel by navGraphViewModels<EntrySharedViewModel>(R.id.new_entry) { factory }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         appComponent?.inject(this)
-        viewModel = ViewModelProvider(this, factory)[EntryViewModel::class.java]
-        sharedViewModel = ViewModelProvider(requireActivity(), factory)[EntrySharedViewModel::class.java]
 
         postponeEnterTransition()
     }

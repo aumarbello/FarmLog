@@ -19,17 +19,7 @@
         tools:layout="@layout/fragment_dashboard"
         />
 
-    <fragment
-        android:id="@+id/newEntryFragment"
-        android:name="com.aumarbello.farmlog.ui.EntryFragment"
-        android:label="@string/label_new_farm"
-        tools:layout="@layout/fragment_entry"
-        />
-
-    <fragment
-        android:id="@+id/mapFragment"
-        android:label="@string/label_map"
-        android:name="com.aumarbello.farmlog.ui.MapFragment"
-        tools:layout="@layout/fragment_map"
+    <include
+        app:graph="@navigation/new_entry"
         />
 </navigation>

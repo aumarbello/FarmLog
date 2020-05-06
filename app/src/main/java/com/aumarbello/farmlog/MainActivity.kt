@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         val fab = findViewById<View>(R.id.addLogEntry)
         fab.setOnClickListener {
-            navController.navigate(R.id.newEntryFragment)
+            navController.navigate(R.id.new_entry)
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
