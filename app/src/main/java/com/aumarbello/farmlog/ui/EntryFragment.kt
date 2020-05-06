@@ -21,8 +21,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import com.aumarbello.farmlog.R
 import com.aumarbello.farmlog.databinding.FragmentEntryBinding
 import com.aumarbello.farmlog.di.FarmLogViewModelFactory
@@ -57,7 +57,7 @@ class EntryFragment : Fragment(R.layout.fragment_entry) {
     private val imageReq = 21
 
     private val viewModel by viewModels<EntryViewModel> { factory }
-    private val sharedViewModel by navGraphViewModels<EntrySharedViewModel>(R.id.new_entry) { factory }
+    private lateinit var sharedViewModel: EntrySharedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +70,13 @@ class EntryFragment : Fragment(R.layout.fragment_entry) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentEntryBinding.bind(view)
         updateToolbarTitle(R.string.label_new_farm, true)
+
+        //Workaround fix for null backStackEntry when testing with mock navController
+        sharedViewModel = try {
+            ViewModelProvider(findNavController().getBackStackEntry(R.id.new_entry).viewModelStore, factory)[EntrySharedViewModel::class.java]
+        } catch (ex: IllegalStateException) {
+            ViewModelProvider(this, factory)[EntrySharedViewModel::class.java]
+        }
 
         coordinatesAdapter = CoordinatesAdapter(sharedViewModel::removeCoordinate)
 

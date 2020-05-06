@@ -83,11 +83,12 @@ class EntryFragmentTest {
         scenario = launchFragmentInContainer(themeResId = R.style.TestContainer) {
             EntryFragment().apply {
                 factory = ViewModelUtil.createFor(viewModel, sharedViewModel)
+                viewLifecycleOwnerLiveData.observeForever { viewLifecycleOwner ->
+                    if (viewLifecycleOwner != null) {
+                        Navigation.setViewNavController(requireView(), navController)
+                    }
+                }
             }
-        }
-
-        scenario.onFragment {
-            Navigation.setViewNavController(it.requireView(), navController)
         }
     }
 
@@ -227,7 +228,7 @@ class EntryFragmentTest {
             "pictures/imageTaken.png",
             "Bayo Musa",
             27,
-            "08132434141",
+            "08012312312",
             "F",
             "SK Farms LTD",
             FarmLocation(6.145, 2.509),
@@ -275,13 +276,6 @@ class EntryFragmentTest {
 
         onView(withId(com.google.android.material.R.id.snackbar_text))
             .check(matches(withText(event.peekContent())))
-    }
-
-    @Test
-    fun whenEntrySavedSuccessfullyThenNavigateBack() {
-        response.postValue(Unit)
-
-        verify(navController).popBackStack()
     }
 
     @Test

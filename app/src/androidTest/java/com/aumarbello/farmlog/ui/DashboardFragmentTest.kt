@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -27,7 +26,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
@@ -109,12 +107,5 @@ class DashboardFragmentTest {
 
         onView(withId(com.google.android.material.R.id.snackbar_text))
             .check(matches(withText(event.peekContent())))
-    }
-
-    @Test
-    fun whenFABIsClickedNavigateToAddEntry() {
-        onView(withId(R.id.addLogEntry)).perform(click())
-
-        verify(navController).navigate(R.id.newEntryFragment)
     }
 }

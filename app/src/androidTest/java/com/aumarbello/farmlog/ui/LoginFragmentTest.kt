@@ -119,11 +119,4 @@ class LoginFragmentTest {
         onView(withId(com.google.android.material.R.id.snackbar_text))
             .check(matches(withText(event.peekContent())))
     }
-
-    @Test
-    fun whenLoginSuccessFulNavigateToDashboard() {
-        response.postValue(true)
-
-        verify(navController).navigate(R.id.dashboardFragment)
-    }
 }
