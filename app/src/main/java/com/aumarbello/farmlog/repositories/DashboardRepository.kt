@@ -3,6 +3,7 @@ package com.aumarbello.farmlog.repositories
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.aumarbello.farmlog.OpenForTesting
+import com.aumarbello.farmlog.data.UserAuthenticator
 import com.aumarbello.farmlog.data.db.FarmLogDAO
 import com.aumarbello.farmlog.models.DashboardItem
 import com.aumarbello.farmlog.models.DashboardItem.*
@@ -16,7 +17,7 @@ import kotlin.math.min
 
 @OpenForTesting
 @Singleton
-class DashboardRepository @Inject constructor(private val dao: FarmLogDAO) {
+class DashboardRepository @Inject constructor(private val dao: FarmLogDAO, private val authenticator: UserAuthenticator) {
     suspend fun createDashboardItems(): LiveData<List<DashboardItem>> =
         withContext(Dispatchers.IO) {
             dao.fetchLogs().map { getDashBoardItems(it) }
@@ -143,5 +144,12 @@ class DashboardRepository @Inject constructor(private val dao: FarmLogDAO) {
             entities.size,
             mapOf(foldGender("M"), foldGender("F"))
         )
+    }
+
+    suspend fun logOut(): Boolean = withContext(Dispatchers.IO) {
+        dao.deleteAllItems()
+        authenticator.logOut()
+
+        true
     }
 }

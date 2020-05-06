@@ -14,4 +14,7 @@ interface FarmLogDAO {
 
     @Delete
     fun delete(item: FarmLogEntity)
+
+    @Query("DELETE FROM logs")
+    fun deleteAllItems()
 }

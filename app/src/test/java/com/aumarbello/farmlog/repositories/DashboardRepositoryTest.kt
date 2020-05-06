@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.aumarbello.farmlog.TestObjects
 import com.aumarbello.farmlog.data.db.FarmLogDAO
 import com.aumarbello.farmlog.getOrAwaitValue
+import com.aumarbello.farmlog.mock
 import com.aumarbello.farmlog.models.DashboardItem.PieChartItem
 import com.aumarbello.farmlog.models.FarmLogEntity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -34,7 +35,7 @@ class DashboardRepositoryTest {
     fun setUp() {
         dao = Mockito.mock(FarmLogDAO::class.java)
 
-        repository = DashboardRepository(dao)
+        repository = DashboardRepository(dao, mock())
     }
 
     @Test

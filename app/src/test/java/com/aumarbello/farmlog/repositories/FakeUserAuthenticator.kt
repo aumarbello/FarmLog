@@ -11,4 +11,6 @@ class FakeUserAuthenticator (
     }
 
     override fun isUserLoggedIn() = false
+
+    override fun logOut() {}
 }

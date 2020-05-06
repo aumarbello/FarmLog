@@ -51,4 +51,10 @@ class DashboardViewModel @Inject constructor(private val repository: DashboardRe
             throwable.message
         }
     }
+
+    fun logOut() {
+        viewModelScope.launch {
+            repository.logOut()
+        }
+    }
 }

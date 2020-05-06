@@ -42,4 +42,7 @@
     <string name="action_confirm">Confirm</string>
     <string name="action_cancel">Cancel</string>
     <string name="label_no_entry">No farms recorded yet.</string>
+    <string name="label_logOut">Log out</string>
+    <string name="label_logOut_prompt">Logging out will clear all data!</string>
+    <string name="action_logOut">Log out</string>
 </resources>

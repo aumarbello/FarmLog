@@ -22,9 +22,12 @@ class InMemoryAuthenticator (context: Context): UserAuthenticator {
         return isValid
     }
 
-
     override fun isUserLoggedIn(): Boolean {
         return preferences.getBoolean(loggedIn, false)
+    }
+
+    override fun logOut() {
+        preferences.edit().putBoolean(loggedIn, false).apply()
     }
 
     private companion object {
