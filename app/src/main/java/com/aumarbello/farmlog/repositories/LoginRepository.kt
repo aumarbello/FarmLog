@@ -10,6 +10,6 @@ class LoginRepository @Inject constructor(private val authenticator: UserAuthent
         return if (authenticator.authenticate(email, password)) {
             true
         } else
-            throw IllegalArgumentException("Invalid email/password provides")
+            throw IllegalArgumentException("Invalid email/password provided")
     }
 }
