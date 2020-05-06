@@ -162,8 +162,10 @@ class MapFragment : Fragment(R.layout.fragment_map) {
     private fun zooMap() {
         val client = LocationServices.getFusedLocationProviderClient(requireContext())
         client.lastLocation.addOnSuccessListener { location ->
-            mapView.getMapAsync {
-                it.easeCamera(CameraUpdateFactory.newLatLngZoom(LatLng(location.latitude, location.longitude), 12.0))
+            if (location != null) {
+                mapView.getMapAsync {
+                    it.easeCamera(CameraUpdateFactory.newLatLngZoom(LatLng(location.latitude, location.longitude), 12.0))
+                }
             }
         }
     }
